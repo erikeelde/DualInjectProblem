@@ -20,15 +20,15 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
-          java-version: 8
+          java-version: 17
 
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v3
 
-      - name: Run app Checks
+      - name: Run assemble
         run: ./gradlew assemble
 
-      - name: Run core Checks
+      - name: Run test
         run: ./gradlew test
 
       - name: Enable KVM
@@ -37,10 +37,10 @@ jobs:
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
 
-      - name: Run flow Checks
+      - name: Run android tests
         run: ./gradlew pixel2api30DebugAndroidTest
 
-      - name: Run flow noop Checks
+      - name: Run full check
         run: ./gradlew check
 
       - name: Upload reports
