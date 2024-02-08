@@ -27,6 +27,9 @@ class ExampleInstrumentedTest {
     val hiltAndroidRule = HiltAndroidRule(this)
 
     @get:Rule(order = 1)
+    val lol = ApplicationInjectionExecutionRule()
+
+    @get:Rule(order = 2)
     val composeTestRule = createAndroidComposeRule<MainActivity>()
 
     @Before
