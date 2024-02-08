@@ -3,13 +3,16 @@ package com.example.dualinjectproblem
 import android.content.Context
 import androidx.startup.Initializer
 import com.example.dualinjectproblem.di.SingleInstanceClass
+import dagger.hilt.EntryPoint
+import dagger.hilt.EntryPoints
 import dagger.hilt.InstallIn
 import dagger.hilt.android.EarlyEntryPoint
 import dagger.hilt.android.EarlyEntryPoints
+import dagger.hilt.android.EntryPointAccessors
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Inject
 
-@EarlyEntryPoint
+@EntryPoint
 @InstallIn(SingletonComponent::class)
 interface InitializerEntryPoint {
 
@@ -18,7 +21,7 @@ interface InitializerEntryPoint {
     companion object {
         fun resolve(context: Context): InitializerEntryPoint {
             val appContext = context.applicationContext
-            return EarlyEntryPoints.get(appContext, InitializerEntryPoint::class.java)
+            return EntryPointAccessors.fromApplication(appContext, InitializerEntryPoint::class.java)
         }
     }
 }
